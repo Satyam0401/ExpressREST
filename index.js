@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const uuid = require("uuid")
 
 
 /*const middleware = (req,res,next)=>{
@@ -54,6 +55,19 @@ app.get("/showUser/:uid",(req,res)=>{
     //console.log(typeof parseInt(req.params.uid))
 const user =members.filter(member=>member.id===parseInt(req.params.uid))
 user.length !==0 ? res.status(200).json(user) : res.status(200).json("this record is not found") 
+})
+
+app.post('/addUser/',(req,res)=>{
+    //console.log(req.body.name)
+    //const name = req.body.name
+    //const email = req.body.email
+    //const password = req.body.password
+    //console.log(name,email,password)
+
+    const {email,name,password} = req.body
+    //console.log(email,name,password)
+members.push({id:uuid.v4(),name,email,password})
+res.status(200).json(members)
 })
 
 const PORT =3000
