@@ -70,5 +70,18 @@ members.push({id:uuid.v4(),name,email,password})
 res.status(200).json(members)
 })
 
+app.delete("/deleteUser/:uid",(req,res)=>{
+    const id = parseInt(req.params.uid)
+    //console.log(id)
+    const found = members.some(member => member.id === id)
+    if(found){
+const results = members.filter(member => member.id !== id)
+res.status(200).json(results)
+    }
+    else{
+        res.status(400).json({msg:`this is an invalid request`})
+    }
+})
+
 const PORT =3000
 app.listen(PORT,()=>console.log(`Server is running at ${PORT}`))
